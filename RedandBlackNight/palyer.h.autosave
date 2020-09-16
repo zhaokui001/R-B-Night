@@ -1,0 +1,18 @@
+#ifndef PALYER_H
+#define PALYER_H
+
+
+class palyer
+{
+private:
+    int identity;
+    int location;
+    int ticket_sum;
+    bool is_live;
+    bool is_eye;
+public:
+    palyer();
+    
+};
+
+#endif // PALYER_H
