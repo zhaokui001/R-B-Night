@@ -27,15 +27,19 @@ SOURCES += \
         main.cpp \
         widget.cpp \
     scene.cpp \
-    player.cpp
+    player.cpp \
+    dialog.cpp
 
 HEADERS += \
         widget.h \
     scene.h \
-    player.h
+    player.h \
+    dialog.h
 
 FORMS += \
-        widget.ui
+        widget.ui \
+    dialog.ui
 
 RESOURCES += \
+    pic.qrc \
     pic.qrc

@@ -21,8 +21,11 @@ class Widget : public QWidget
 private:
     Player player[20];//玩家
     int num;
+
 public:
+
     explicit Widget(QWidget *parent = 0);
+    int red_sum,black_sum,flag1;
     void set_num(const int &n);//设置玩家人数
     int get_num(){return num;}
     bool is_live(const int &i);//查看是否存活
@@ -35,6 +38,7 @@ public:
     //void keyPressEvent(QKeyEvent *);
     void swap(int *a,int *b);//交换函数
     void generateDiffRand(int n);//随机数赋予玩家身份
+    void gameover(int m,int n);//游戏结束
     void init();//初始化
 
     ~Widget();

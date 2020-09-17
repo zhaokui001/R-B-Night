@@ -1,16 +1,9 @@
 #include "player.h"
 
 
-
-void Player::set_location(const int &xx,const int &yy)//设置玩家位置
+void Player::set_ticket(double tic)//设置玩家拥有的票数
 {
-    x=xx;
-    y=yy;
-}
-
-void Player::set_ticket_sum(const double tic)//设置玩家票数
-{
-    ticket_sum=tic;
+    ticket=tic;
 }
 
 void Player::set_red()//设置为红牌身份
@@ -48,4 +41,5 @@ void Player::init()//初始化函数
     live=true;
     eye=true;
     ticket_sum=0;
+    set_ticket(1.0);
 }

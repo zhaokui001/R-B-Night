@@ -164,160 +164,24 @@
     </rect>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QToolButton" name="toolButton_present2">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>0</y>
-     <width>111</width>
-     <height>650</height>
+     <x>90</x>
+     <y>660</y>
+     <width>90</width>
+     <height>40</height>
     </rect>
    </property>
-   <property name="title">
-    <string>投票</string>
+   <property name="font">
+    <font>
+     <family>华文彩云</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QRadioButton" name="radioButton">
-      <property name="text">
-       <string>玩家1</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_2">
-      <property name="text">
-       <string>玩家2</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_3">
-      <property name="text">
-       <string>玩家3</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_4">
-      <property name="text">
-       <string>玩家4</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_5">
-      <property name="text">
-       <string>玩家5</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_6">
-      <property name="text">
-       <string>玩家6</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_7">
-      <property name="text">
-       <string>玩家7</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_8">
-      <property name="text">
-       <string>玩家8</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_9">
-      <property name="text">
-       <string>玩家9</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_10">
-      <property name="text">
-       <string>玩家10</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_11">
-      <property name="text">
-       <string>玩家11</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_12">
-      <property name="text">
-       <string>玩家12</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_13">
-      <property name="text">
-       <string>玩家13</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_14">
-      <property name="text">
-       <string>玩家14</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_15">
-      <property name="text">
-       <string>玩家15</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_16">
-      <property name="text">
-       <string>玩家16</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_17">
-      <property name="text">
-       <string>玩家17</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_18">
-      <property name="text">
-       <string>玩家18</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_19">
-      <property name="text">
-       <string>玩家19</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QRadioButton" name="radioButton_20">
-      <property name="text">
-       <string>玩家20</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="text">
+    <string>发言2</string>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
