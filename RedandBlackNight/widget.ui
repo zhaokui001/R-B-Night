@@ -167,7 +167,7 @@
   <widget class="QToolButton" name="toolButton_present2">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>0</x>
      <y>660</y>
      <width>90</width>
      <height>40</height>
@@ -180,9 +180,57 @@
     </font>
    </property>
    <property name="text">
-    <string>发言2</string>
+    <string>发言</string>
    </property>
   </widget>
+  <widget class="QToolButton" name="toolButton_night">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>710</y>
+     <width>90</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文彩云</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>进入夜晚</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="toolButton_presentover2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>710</y>
+     <width>90</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文彩云</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>发言结束</string>
+   </property>
+  </widget>
+  <zorder>toolButton_presentover2</zorder>
+  <zorder>toolButton_present2</zorder>
+  <zorder>toolButton_start</zorder>
+  <zorder>toolButton_quit</zorder>
+  <zorder>toolButton_present</zorder>
+  <zorder>textEdit_show</zorder>
+  <zorder>toolButton_presentover</zorder>
+  <zorder>toolButton_voteover</zorder>
+  <zorder>tableWidget_information</zorder>
+  <zorder>toolButton_night</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

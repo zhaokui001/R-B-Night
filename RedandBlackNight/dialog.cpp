@@ -34,7 +34,7 @@ void Dialog::init(int n,double t)
             {
                 if(rad[i]->isChecked())
                 {
-                    a[i]+=t;
+                    a[i+1]+=t;
                 }
             }
             for(int i=0;i<n;i++)
