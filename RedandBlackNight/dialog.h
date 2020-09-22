@@ -18,8 +18,8 @@ public:
     int get_playernum(){return playernum;}
     void set_ischecked(int n);
     int get_ischecked(){return ischecked;}
-    void init(int n,double t);
-    void select_new_village_head(int n);
+    void init(int n,int m,double t);
+    void select_new_village_head(int n,int m);
     ~Dialog();
 
 private:

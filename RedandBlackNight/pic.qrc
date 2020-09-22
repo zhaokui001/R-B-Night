@@ -3,5 +3,6 @@
         <file>Image/background1.jpg</file>
         <file>Image/background2.jpg</file>
         <file>Image/begin.webp</file>
+        <file>background1.jpg</file>
     </qresource>
 </RCC>

@@ -10,6 +10,9 @@
 #include <QVector>
 #include <QKeyEvent>
 #include "dialog.h"
+#include <QPixmap>
+#include <QPalette>
+#include <QBitmap>
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
@@ -17,6 +20,11 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(1000,800);
     setWindowTitle("红黑夜法官");
+    flag3=get_num()+1;
+    QPixmap pic("://background1.jpg");
+    QPalette bgPalette = this->palette();
+    bgPalette.setBrush(QPalette::Background,pic);
+    this->setPalette(bgPalette);
     connect(ui->toolButton_present,&QToolButton::clicked,this,[=](){//发言触发
         ui->textEdit_show->setVisible(true);
         for(int i=1;i<get_num()+1;i++)
@@ -39,22 +47,40 @@ Widget::Widget(QWidget *parent) :
             ui->textEdit_show->insertPlainText("\n");
         }
         ui->toolButton_present->setVisible(false);
+        ui->toolButton_presentover->setVisible(true);
+    });
+
+    Dialog *A = new Dialog(this);
+    connect(ui->toolButton_presentover,&QToolButton::clicked,this,[=](){//发言结束触发
+        for(int i=1;i<get_num()+1;i++)
+        {
+            A->init(get_num(),flag2,player[i].get_ticket());
+            A->exec();
+        }
+        for(int i=1;i<get_num()+1;i++)
+        {
+            player[i].ticket_sum=A->a[i];
+        }
+        for(int i=1;i<get_num()+1;i++)
+        {
+            A->a[i]=0;
+        }
+        select_village_head(get_num());
+        ui->toolButton_presentover->setVisible(false);
+        ui->toolButton_present2->setVisible(true);
     });
 
     connect(ui->toolButton_present2,&QToolButton::clicked,this,[=](){//发言2触发
-        ui->textEdit_show->setVisible(true);
         for(int i=flag1;i<get_num()+1;i++)//从村长到最后一个依次发言
         {
             QString str;
             if(player[i].is_identity())
             {
                 str="红牌";
-                red_sum++;
             }
             else
             {
                 str="黑牌";
-                black_sum++;
             }
             if(is_live(i))
             {
@@ -73,12 +99,10 @@ Widget::Widget(QWidget *parent) :
             if(player[i].is_identity())
             {
                 str="红牌";
-                red_sum++;
             }
             else
             {
                 str="黑牌";
-                black_sum++;
             }
             if(is_live(i))
             {
@@ -91,51 +115,46 @@ Widget::Widget(QWidget *parent) :
                 ui->textEdit_show->insertPlainText("\n");
             }
         }
-    });
-
-      Dialog *A = new Dialog(this);
-    connect(ui->toolButton_presentover,&QToolButton::clicked,this,[=](){//发言结束触发
-        for(int i=1;i<get_num()+1;i++)
-        {
-            A->init(get_num(),player[i].get_ticket());
-            A->exec();
-        }
-        for(int i=1;i<get_num()+1;i++)
-        {
-            player[i].ticket_sum=A->a[i];
-        }
-        for(int i=1;i<get_num()+1;i++)
-        {
-            A->a[i]=0;
-        }
-        select_village_head(get_num());
-        ui->toolButton_presentover->setVisible(false);
-        ui->toolButton_present2->setVisible(true);
+        ui->toolButton_present2->setVisible(false);
+        ui->toolButton_presentover2->setVisible(true);
     });
 
     connect(ui->toolButton_presentover2,&QToolButton::clicked,this,[=](){//发言2结束触发
-        for(int i=0;i<get_num();i++)
+        for(int i=1;i<flag3;i++)
         {
-            A->init(get_num(),player[i].get_ticket());
+            A->init(get_num(),flag2,player[i].get_ticket());
             A->exec();
         }
-        for(int i=0;i<get_num();i++)
+        for(int i=1;i<get_num()+1;i++)
         {
             player[i].ticket_sum=A->a[i];
         }
-        for(int i=0;i<get_num();i++)
+        for(int i=1;i<get_num()+1;i++)
         {
             A->a[i]=0;
         }
-    });
-
-    connect(ui->toolButton_voteover,&QToolButton::clicked,this,[=](){//投票结束触发
         expel(get_num());
-        gameover(red_sum,black_sum);
+        gameover(get_red_num(),get_black_num());
     });
 
     connect(ui->toolButton_night,&QToolButton::clicked,this,[=](){//选择夜晚触发
         select_scene_status();
+        ui->toolButton_night->setVisible(false);
+        ui->toolButton_day->setVisible(true);
+    });
+
+    connect(ui->toolButton_day,&QToolButton::clicked,this,[=](){//进入白天
+        QMessageBox::information(this,"提示","进入白天,请大家依次发言");
+        for(int i=1;i<get_num()+1;i++)
+        {
+            if(player[i].is_live())
+            {
+                player[i].set_eyeopened();
+                ui->tableWidget_information->setItem(i-1,1,new QTableWidgetItem("睁眼"));
+            }
+        }
+        ui->toolButton_day->setVisible(false);
+        ui->toolButton_present2->setVisible(true);
     });
 
     init();//调用初始化函数
@@ -144,11 +163,9 @@ Widget::Widget(QWidget *parent) :
         QInputDialog dia(this);
         dia.setWindowTitle("玩家人数");
         dia.setLabelText("请输入本次玩家人数");
-        dia.setFixedSize(400,200);
         dia.setInputMode(QInputDialog::IntInput);
-        bool ok=true;
-        set_num(QInputDialog::getInt(this,"玩家人数","请输入本次玩家人数",0,0,20,0,&ok));
         dia.exec();
+        set_num(dia.intValue());
         for(int i=0;i<get_num();i++)//玩家初始化
         {
             player[i].init();
@@ -157,10 +174,6 @@ Widget::Widget(QWidget *parent) :
         ui->tableWidget_information->setVisible(true);
         ui->toolButton_start->setVisible(false);
         ui->toolButton_present->setVisible(true);
-        ui->toolButton_presentover->setVisible(true);
-        ui->toolButton_voteover->setVisible(true);
-        ui->toolButton_night->setVisible(true);
-        ui->toolButton_presentover2->setVisible(true);
 
         ui->tableWidget_information->setColumnCount(5);
         ui->tableWidget_information->setHorizontalHeaderLabels(QStringList()<<"玩家名称"<<"是否睁眼"<<"是否存活"<<"是否是村长"<<"拥有的票数");
@@ -188,12 +201,12 @@ void Widget::init()//初始化
 {
     ui->toolButton_present->setVisible(false);
     ui->toolButton_presentover->setVisible(false);
-    ui->toolButton_voteover->setVisible(false);
     ui->tableWidget_information->setVisible(false);
     ui->textEdit_show->setVisible(false);
     ui->toolButton_present2->setVisible(false);
     ui->toolButton_night->setVisible(false);
     ui->toolButton_presentover2->setVisible(false);
+    ui->toolButton_day->setVisible(false);
 
     scene.init();//场景初始化
 }
@@ -201,6 +214,16 @@ void Widget::init()//初始化
 void Widget::set_num(const int &n)//设置玩家人数
 {
     num=n;
+}
+
+void Widget::set_red_num()//设置被淘汰的红牌玩家
+{
+    red_sum++;
+}
+
+void Widget::set_black_num()//设置被淘汰的黑牌玩家
+{
+    black_sum++;
 }
 
 bool Widget::is_live(const int &i)//得到是否存活
@@ -260,16 +283,15 @@ void Widget::select_village_head(int n)//选择村长
 void Widget::expel(int n)//驱逐
 {
     int max,flag=0;
-    max=player[0].ticket_sum;
-    for(int i=1;i<n;i++)
+    max=player[1].ticket_sum;
+    for(int i=1;i<n+1;i++)
     {
         if(player[i].ticket_sum>=max)
         {
             max=player[i].ticket_sum;
         }
-
     }
-    for(int i=0;i<n;i++)
+    for(int i=1;i<n+1;i++)
     {
         if(player[i].ticket_sum==max)
         {
@@ -286,16 +308,18 @@ void Widget::expel(int n)//驱逐
         {
             if(player[i].ticket_sum==max)
             {
+                flag2=i;
+                flag3--;
                 QString str;
                 if(player[i].is_identity())
                 {
                     str="红牌";
-                    red_sum++;
+                    set_red_num();
                 }
                 else
                 {
                     str="黑牌";
-                    black_sum++;
+                    set_black_num();
                 }
                 QMessageBox::information(this,"驱逐","玩家"+QString::number(i)+"被驱逐,他的身份是"+str);
                 death(i);
@@ -305,7 +329,7 @@ void Widget::expel(int n)//驱逐
                 {
                     Dialog *A1=new Dialog(this);
                     QMessageBox::information(this,"提示","村长被驱逐,请指定新的村长");
-                    A1->select_new_village_head(get_num());
+                    A1->select_new_village_head(get_num(),flag2);
                     A1->exec();
                     for(int i=1;i<get_num()+1;i++)
                     {
@@ -315,12 +339,16 @@ void Widget::expel(int n)//驱逐
                             ui->tableWidget_information->setItem(i+1,3,new QTableWidgetItem("是"));
                             player[i].set_ticket(player[flag1].get_ticket());
                             flag1=i;
+                            A1->a[i]=0;
+                            break;
                         }
                     }
                 }
                 break;
             }
         }
+        ui->toolButton_presentover2->setVisible(false);
+        ui->toolButton_night->setVisible(true);
     }
 }
 
@@ -345,12 +373,12 @@ void Widget::choose_is_eyeopened(int n)//玩家选择是否闭眼
             }
         }
     }
-    if(scene.get_status()==1&&(get_num()-eye_red_num)%2==0)
+    if(scene.get_status()==1&&(get_num()-eye_red_num)%2==0)//红夜睁眼偶数改变村长拥有的票数
     {
         player[flag1].set_ticket(1);
         ui->tableWidget_information->setItem(flag1-1,4,new QTableWidgetItem("1票"));
     }
-    else if(scene.get_status()==2&&(get_num()-eye_black_num)%2==0)
+    else if(scene.get_status()==2&&(get_num()-eye_black_num)%2==0)//黑夜睁眼偶数改变村长拥有的票数
     {
         player[flag1].set_ticket(1);
         ui->tableWidget_information->setItem(flag1-1,4,new QTableWidgetItem("1票"));
@@ -381,21 +409,17 @@ void Widget::generateDiffRand(int n)//得到玩家的身份
     {
         swap(&a[i],&a[i+rand()%(n+1-i)]);
     }
-    for(int i=1;i<n+1;i++)
-    {
-        qDebug()<<a[i];
-    }
-    for(i=1;i<(n/2)+1;i++)
+    for(i=1;i<(n/2)+2;i++)
     {
         player[a[i]].set_red();
     }
-    for(i=(n/2)+1;i<n+1;i++)
+    for(i=(n/2)+2;i<n+1;i++)
     {
         player[a[i]].set_black();
     }
 }
 
-void Widget::select_scene_status()//选择场景状态
+void Widget::select_scene_status()//选择夜晚状态
 {
     int a[100];
     int i;

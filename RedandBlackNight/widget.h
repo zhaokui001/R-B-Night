@@ -21,14 +21,18 @@ class Widget : public QWidget
 private:
     Player player[20];//玩家
     int num;
-
+    int red_sum=0;
+    int black_sum=0;
 public:
-
     explicit Widget(QWidget *parent = 0);
-    int red_sum=0,black_sum=0,flag1;
+    int flag1,flag2=30,flag3;
     int eye_red_num=0,eye_black_num=0;
     void set_num(const int &n);//设置玩家人数
-    int get_num(){return num;}
+    int get_num(){return num;}//获取玩家人数
+    void set_red_num();//设置被淘汰的红牌玩家人数
+    int get_red_num(){return red_sum;}//获取被淘汰的红牌玩家人数
+    void set_black_num();//设置被淘汰的黑牌玩家人数
+    int get_black_num(){return black_sum;}//获取被淘汰的黑牌玩家人数
     bool is_live(const int &i);//查看是否存活
     bool is_eye(const int &i);//查看是否睁眼
     void death(int n);//设置死亡
