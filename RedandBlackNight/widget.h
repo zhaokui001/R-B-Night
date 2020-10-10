@@ -36,11 +36,9 @@ public:
     bool is_live(const int &i);//查看是否存活
     bool is_eye(const int &i);//查看是否睁眼
     void death(int n);//设置死亡
-    void eye(int n);//设置闭眼
     void select_village_head(int n);//选择村长
     void expel(int n);//驱逐票最高者
     void choose_is_eyeopened(int n);//选择是否睁眼
-    //void keyPressEvent(QKeyEvent *);
     void swap(int *a,int *b);//交换函数
     void generateDiffRand(int n);//随机数赋予玩家身份
     void select_scene_status();//选择场景状态

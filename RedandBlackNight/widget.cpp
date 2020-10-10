@@ -20,7 +20,6 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(1000,800);
     setWindowTitle("红黑夜法官");
-    flag3=get_num()+1;
     QPixmap pic("://background1.jpg");
     QPalette bgPalette = this->palette();
     bgPalette.setBrush(QPalette::Background,pic);
@@ -54,7 +53,7 @@ Widget::Widget(QWidget *parent) :
     connect(ui->toolButton_presentover,&QToolButton::clicked,this,[=](){//发言结束触发
         for(int i=1;i<get_num()+1;i++)
         {
-            A->init(get_num(),flag2,player[i].get_ticket());
+            A->select(get_num(),flag2,player[i].get_ticket());
             A->exec();
         }
         for(int i=1;i<get_num()+1;i++)
@@ -122,7 +121,7 @@ Widget::Widget(QWidget *parent) :
     connect(ui->toolButton_presentover2,&QToolButton::clicked,this,[=](){//发言2结束触发
         for(int i=1;i<flag3;i++)
         {
-            A->init(get_num(),flag2,player[i].get_ticket());
+            A->select(get_num(),flag2,player[i].get_ticket());
             A->exec();
         }
         for(int i=1;i<get_num()+1;i++)
@@ -166,6 +165,8 @@ Widget::Widget(QWidget *parent) :
         dia.setInputMode(QInputDialog::IntInput);
         dia.exec();
         set_num(dia.intValue());
+        flag3=get_num()+1;
+
         for(int i=0;i<get_num();i++)//玩家初始化
         {
             player[i].init();
@@ -241,11 +242,6 @@ void Widget::death(int n)//设置死亡
     player[n].set_death();
 }
 
-void Widget::eye(int n)//设置闭眼
-{
-    player[n].set_eyeclosed();
-}
-
 void Widget::select_village_head(int n)//选择村长
 {
     int max;
@@ -310,6 +306,7 @@ void Widget::expel(int n)//驱逐
             {
                 flag2=i;
                 flag3--;
+                qDebug()<<flag3;
                 QString str;
                 if(player[i].is_identity())
                 {
@@ -328,6 +325,7 @@ void Widget::expel(int n)//驱逐
                 if(i==flag1)
                 {
                     Dialog *A1=new Dialog(this);
+                    ui->tableWidget_information->setItem(flag1-1,3,new QTableWidgetItem("不是"));
                     QMessageBox::information(this,"提示","村长被驱逐,请指定新的村长");
                     A1->select_new_village_head(get_num(),flag2);
                     A1->exec();
@@ -336,7 +334,7 @@ void Widget::expel(int n)//驱逐
                         if(A1->a[i]==1)
                         {
                             QMessageBox::information(this,"提示","玩家"+QString::number(i)+"被选为村长");
-                            ui->tableWidget_information->setItem(i+1,3,new QTableWidgetItem("是"));
+                            ui->tableWidget_information->setItem(i-1,3,new QTableWidgetItem("是"));
                             player[i].set_ticket(player[flag1].get_ticket());
                             flag1=i;
                             A1->a[i]=0;
@@ -354,13 +352,13 @@ void Widget::expel(int n)//驱逐
 
 void Widget::choose_is_eyeopened(int n)//玩家选择是否闭眼
 {
-    for(int i=0;i<n;i++)
+    for(int i=1;i<n+1;i++)
     {
         if(player[i].is_live())
         {
-            if(QMessageBox::question(this,"选择睁眼","请玩家"+QString::number(i+1)+"选择是否睁眼")==QMessageBox::No)
+            if(QMessageBox::question(this,"选择睁眼","请玩家"+QString::number(i)+"选择是否睁眼")==QMessageBox::No)
             {
-                ui->tableWidget_information->setItem(i,1,new QTableWidgetItem("闭眼"));
+                ui->tableWidget_information->setItem(i-1,1,new QTableWidgetItem("闭眼"));
                 player[i].set_eyeclosed();
                 if(player[i].is_identity())
                 {

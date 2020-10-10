@@ -16,7 +16,7 @@ public:
     };
     double ticket_sum;//该玩家得到的票数
     void set_ticket(double tic);//设置该玩家拥有的票数
-    double get_ticket(){return ticket;}
+    double get_ticket(){return ticket;}//获取玩家拥有的票数
     void set_red();//设置为红牌
     void set_black();//设置为黑牌
     void set_live();//设置为存活

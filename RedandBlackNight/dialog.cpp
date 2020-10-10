@@ -14,16 +14,16 @@ void Dialog::set_playernum(int n)//设置玩家数量
     playernum=n;
 }
 
-void Dialog::init(int n,int m,double t)
+void Dialog::select(int n,int m,double t)//投票
 {
     static int trigger = 1;
     QVector<QRadioButton*> rad={ui->radioButton,ui->radioButton_2,ui->radioButton_3,ui->radioButton_4,ui->radioButton_5,ui->radioButton_6,
                                 ui->radioButton_7,ui->radioButton_8,ui->radioButton_9,ui->radioButton_10,ui->radioButton_11,ui->radioButton_12,
                                 ui->radioButton_13,ui->radioButton_14,ui->radioButton_15,ui->radioButton_16,ui->radioButton_17,ui->radioButton_18,
-                               ui->radioButton_19,ui->radioButton_20};
+                                ui->radioButton_19,ui->radioButton_20};
     for(int i=0;i<n;i++)
     {
-        if(i==m)
+        if(i==(m-1))
         {
             rad[i]->setVisible(false);
         }
@@ -61,10 +61,10 @@ void Dialog::select_new_village_head(int n,int m)
     QVector<QRadioButton*> rad={ui->radioButton,ui->radioButton_2,ui->radioButton_3,ui->radioButton_4,ui->radioButton_5,ui->radioButton_6,
                                 ui->radioButton_7,ui->radioButton_8,ui->radioButton_9,ui->radioButton_10,ui->radioButton_11,ui->radioButton_12,
                                 ui->radioButton_13,ui->radioButton_14,ui->radioButton_15,ui->radioButton_16,ui->radioButton_17,ui->radioButton_18,
-                               ui->radioButton_19,ui->radioButton_20};
+                                ui->radioButton_19,ui->radioButton_20};
     for(int i=0;i<n;i++)
     {
-        if(i==m)
+        if(i==(m-1))
         {
             rad[i]->setVisible(false);
         }
@@ -80,7 +80,7 @@ void Dialog::select_new_village_head(int n,int m)
             {
                 if(rad[i]->isChecked())
                 {
-                    a[i]=1;
+                    a[i+1]=1;
                 }
             }
             for(int i=0;i<n;i++)

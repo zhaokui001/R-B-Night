@@ -14,12 +14,12 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = 0);
     double a[20]={0};
-    void set_playernum(int n);
-    int get_playernum(){return playernum;}
-    void set_ischecked(int n);
-    int get_ischecked(){return ischecked;}
-    void init(int n,int m,double t);
-    void select_new_village_head(int n,int m);
+    void set_playernum(int n);//设置玩家数量
+    int get_playernum(){return playernum;}//获取玩家数量
+//    void set_ischecked(int n);//设置
+//    int get_ischecked(){return ischecked;}//获取玩家是否被投票
+    void select(int n,int m,double t);//进行投票行为
+    void select_new_village_head(int n,int m);//选举村长的投票行为
     ~Dialog();
 
 private:

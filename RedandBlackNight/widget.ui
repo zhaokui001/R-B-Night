@@ -52,8 +52,12 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">
+border-image: url(:/Image/start.jpg);</string>
+   </property>
    <property name="text">
-    <string>开始游戏</string>
+    <string/>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_quit">
@@ -83,8 +87,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/quit.jpg);</string>
+   </property>
    <property name="text">
-    <string>退出游戏</string>
+    <string/>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_present">
@@ -102,8 +109,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/next.jpg);</string>
+   </property>
    <property name="text">
-    <string>发言</string>
+    <string/>
    </property>
   </widget>
   <widget class="QTextEdit" name="textEdit_show">
@@ -114,6 +124,10 @@
      <width>270</width>
      <height>500</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/Image/text.png);
+font: 7pt &quot;华文行楷&quot;;</string>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_presentover">
@@ -131,8 +145,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/next.jpg);</string>
+   </property>
    <property name="text">
-    <string>发言结束</string>
+    <string/>
    </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget_information">
@@ -143,6 +160,10 @@
      <width>631</width>
      <height>571</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/Image/table.jpg);
+font: 9pt &quot;华文琥珀&quot;;</string>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_present2">
@@ -160,8 +181,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/next.jpg);</string>
+   </property>
    <property name="text">
-    <string>发言</string>
+    <string/>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_night">
@@ -179,8 +203,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/next.jpg);</string>
+   </property>
    <property name="text">
-    <string>进入夜晚</string>
+    <string/>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_presentover2">
@@ -198,8 +225,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/next.jpg);</string>
+   </property>
    <property name="text">
-    <string>发言结束</string>
+    <string/>
    </property>
   </widget>
   <widget class="QToolButton" name="toolButton_day">
@@ -217,8 +247,11 @@
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/next.jpg);</string>
+   </property>
    <property name="text">
-    <string>天亮</string>
+    <string/>
    </property>
   </widget>
   <zorder>toolButton_presentover2</zorder>

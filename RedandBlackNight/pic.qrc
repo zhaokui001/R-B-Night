@@ -4,5 +4,11 @@
         <file>Image/background2.jpg</file>
         <file>Image/begin.webp</file>
         <file>background1.jpg</file>
+        <file>Image/next.jpg</file>
+        <file>Image/quit.jpg</file>
+        <file>Image/start.jpg</file>
+        <file>Image/background3.jpg</file>
+        <file>Image/table.jpg</file>
+        <file>Image/text.png</file>
     </qresource>
 </RCC>
