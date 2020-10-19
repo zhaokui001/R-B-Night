@@ -20,7 +20,7 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(1000,800);
     setWindowTitle("红黑夜法官");
-    QPixmap pic("://background1.jpg");
+    QPixmap pic(":///Image/background3.jpg");
     QPalette bgPalette = this->palette();
     bgPalette.setBrush(QPalette::Background,pic);
     this->setPalette(bgPalette);
@@ -66,10 +66,11 @@ Widget::Widget(QWidget *parent) :
         }
         select_village_head(get_num());
         ui->toolButton_presentover->setVisible(false);
-        ui->toolButton_present2->setVisible(true);
+        ui->toolButton_forword->setVisible(true);
+        ui->toolButton_backword->setVisible(true);
     });
 
-    connect(ui->toolButton_present2,&QToolButton::clicked,this,[=](){//发言2触发
+    connect(ui->toolButton_forword,&QToolButton::clicked,this,[=](){//正向发言触发
         for(int i=flag1;i<get_num()+1;i++)//从村长到最后一个依次发言
         {
             QString str;
@@ -114,7 +115,58 @@ Widget::Widget(QWidget *parent) :
                 ui->textEdit_show->insertPlainText("\n");
             }
         }
-        ui->toolButton_present2->setVisible(false);
+        ui->toolButton_forword->setVisible(false);
+        ui->toolButton_backword->setVisible(false);
+        ui->toolButton_presentover2->setVisible(true);
+    });
+
+    connect(ui->toolButton_backword,&QToolButton::clicked,this,[=](){//反向发言触发
+        for(int i=flag1;i>0;i--)//从村长到第一个依次发言
+        {
+            QString str;
+            if(player[i].is_identity())
+            {
+                str="红牌";
+            }
+            else
+            {
+                str="黑牌";
+            }
+            if(is_live(i))
+            {
+                QInputDialog dia1(this);
+                dia1.setWindowTitle("发言");
+                dia1.setLabelText("请玩家"+QString::number(i)+"发言,你的身份是"+str);
+                dia1.setInputMode(QInputDialog::TextInput);
+                dia1.exec();
+                ui->textEdit_show->insertPlainText(dia1.textValue());
+                ui->textEdit_show->insertPlainText("\n");
+            }
+        }
+        for(int i=get_num();i>flag1;i--)//从最后一个到村长依次发言
+        {
+            QString str;
+            if(player[i].is_identity())
+            {
+                str="红牌";
+            }
+            else
+            {
+                str="黑牌";
+            }
+            if(is_live(i))
+            {
+                QInputDialog dia1(this);
+                dia1.setWindowTitle("发言");
+                dia1.setLabelText("请玩家"+QString::number(i)+"发言,你的身份是"+str);
+                dia1.setInputMode(QInputDialog::TextInput);
+                dia1.exec();
+                ui->textEdit_show->insertPlainText(dia1.textValue());
+                ui->textEdit_show->insertPlainText("\n");
+            }
+        }
+        ui->toolButton_forword->setVisible(false);
+        ui->toolButton_backword->setVisible(false);
         ui->toolButton_presentover2->setVisible(true);
     });
 
@@ -153,7 +205,8 @@ Widget::Widget(QWidget *parent) :
             }
         }
         ui->toolButton_day->setVisible(false);
-        ui->toolButton_present2->setVisible(true);
+        ui->toolButton_forword->setVisible(true);
+        ui->toolButton_backword->setVisible(true);
     });
 
     init();//调用初始化函数
@@ -204,10 +257,11 @@ void Widget::init()//初始化
     ui->toolButton_presentover->setVisible(false);
     ui->tableWidget_information->setVisible(false);
     ui->textEdit_show->setVisible(false);
-    ui->toolButton_present2->setVisible(false);
+    ui->toolButton_forword->setVisible(false);
     ui->toolButton_night->setVisible(false);
     ui->toolButton_presentover2->setVisible(false);
     ui->toolButton_day->setVisible(false);
+    ui->toolButton_backword->setVisible(false);
 
     scene.init();//场景初始化
 }
@@ -449,10 +503,12 @@ void Widget::gameover(int m,int n)//游戏结束
     if(m==get_num()/2+1)
     {
         QMessageBox::information(this,"游戏结束","黑牌玩家获得胜利");
+        close();
     }
     else if(n==get_num()/2)
     {
         QMessageBox::information(this,"游戏结束","红牌玩家获得胜利");
+        close();
     }
 }
 
